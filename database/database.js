@@ -1,6 +1,6 @@
 var mysql = require('mysql');
 var tables = require('./tables.js');
-var db_config = require('../server/utilities').dbConfig;
+var db_config = require('./dbConfig.js');
 
 var createConnection = function createConnection() {
     connection = mysql.createConnection(db_config);

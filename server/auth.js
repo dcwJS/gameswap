@@ -1,7 +1,5 @@
 var jwt = require('jwt-simple');
-var secret = require('./utilities').token.secret;
-var scope = require('./utilities').token.scope;
-
+var secret = '123';
 module.exports = {
   checkUser : function(req, res, next) {
     if(!req.headers['x-access-token']) {
@@ -21,7 +19,7 @@ module.exports = {
 },
 
 authenticateUser : function(id, email, res, req){
-    var payload = {id: id, email: email, scope: scope};
+    var payload = {id: id, email: email};
     var token = jwt.encode(payload, secret);
 
     res.set('token', token);

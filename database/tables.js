@@ -9,6 +9,8 @@ module.exports = {
 
 	messages: 'CREATE TABLE IF NOT EXISTS `Messages` (`id` INTEGER NOT NULL auto_increment, `message` MEDIUMTEXT NULL DEFAULT NULL, `userto` INTEGER NULL DEFAULT NULL, `userfrom` INTEGER NULL DEFAULT NULL, `createdat` TIMESTAMP, PRIMARY KEY (`id`));',
 
+  chatrooms: 'CREATE TABLE IF NOT EXISTS `Chatrooms` (`id` INTEGER NOT NULL auto_increment, `lobby` MEDIUMTEXT NULL DEFAULT NULL, `userone` INTEGER NULL DEFAULT NULL, `usertwo` INTEGER NULL DEFAULT NULL, `createdat` TIMESTAMP, PRIMARY KEY (`id`));',
+
   create: function () {
   	connection.query(this.users, function (err){
   		if (err) {
@@ -39,6 +41,12 @@ module.exports = {
 				console.error('error while creating messages table: ', err);
 			}
 		});
+
+  connection.query(this.chatrooms, function (err) {
+      if (err) {
+        console.error('error while creating chatrooms table: ', err);
+      }
+    });
   }
 
 }

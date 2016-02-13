@@ -9,16 +9,16 @@ angular
             to: to
       })
       .then(function(){
-        this.getMessages();
+        // this.getMessages();
       }.bind(this));
     };
 
     this.getMessages = function () {
-      MessagesService.getMessages()
-      .then(function(data){
-        this.messageHistory = null;
-        this.messageHistory = data.results;
-      }.bind(this));
+      // MessagesService.getMessages()
+      // .then(function(data){
+      //   this.messageHistory = null;
+      //   this.messageHistory = data.results;
+      // }.bind(this));
     };
 
     this.getUser = function () {
@@ -33,7 +33,12 @@ angular
       this.toName = username;
       $window.document.getElementById('messageText').focus();
     };
+    
+    this.makeRoom = function (user) {
+      MessagesService.makeRoom(user);
+    };
 
     this.getUser();
-    this.getMessages();
+    // this.getMessages();
+    this.makeRoom();
 });

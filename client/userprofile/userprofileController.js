@@ -15,6 +15,7 @@ angular.module('userprofile', [])
           userInfo.city = resp.city || 'santa monica';
           userInfo.gamesOffered = resp.offerings;
           userInfo.gamesSeeking = resp.seeking;
+          console.log('++++line 18: ', resp);
         });
     };
 

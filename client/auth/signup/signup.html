@@ -34,7 +34,8 @@
 
         <div class="form-group" ng-class="{'has-error': signupForm.city.$invalid && !signupForm.city.$pristine }">
             <label>City:</label>
-            <input type="text" name="city" class="form-control" ng-model="signup.city">
+            <input type="text" name="city" class="form-control" ng-model="signup.city" id="auto-zipcode">
+            <p ng-show="" class="text-danger">Please enter a valid region.</p>
         </div>
 
         <button type="submit" class="btn btn-primary" ng-disabled="signupForm.$invalid">Submit</button>

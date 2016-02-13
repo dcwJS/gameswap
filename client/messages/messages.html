@@ -13,50 +13,5 @@
 
     <h3 class='head-space-md'>Send a Message</h3>
 
-      <form name="MessagesForm" ng-submit='MessagesForm.$valid && messages.sendMessage(messageText, messages.toId); messageText = ""' novalidate>
-
-      <table class='table message-border table-condensed'>
-        <tr>
-          <td class='table-tag'>To:</td>
-          <td>{{messages.toName}}</td>
-        </tr>
-
-        <tr>
-        <td class='table-tag'>From:</td>
-        <td>{{messages.username}}</td>
-      </table>
-
-      <fieldset class="form-group">
-        <textarea id='messageText' class="form-control" placeholder="Send a message..." title="Message" ng-model='messageText'/required></textarea>
-      </fieldset>
-
-      <fieldset class="form-group">
-        <input type="submit" class="btn btn-primary form-control" value="Send Message" />
-      </fieldset>
-
-    </form>
-
-    <h3 class='head-space-md'>Messages Received:</h3>
-
-    <div ng-show='messages.messageHistory'  ng-repeat='message in messages.messageHistory | orderBy: ["username", "-createdat"]'>
-      <table class='table message-border table-condensed nomargin-bottom margin-top whitesmoke'>
-        <tr>
-          <td class='table-tag'>Date:</td>
-          <td>{{message.createdat | date:'medium'}}
-        <tr>
-          <td class='table-tag'>From:</td>
-          <td>{{message.username}}</td>
-        </tr>
-
-        <tr>
-          <td class='table-tag'>Message:</td>
-          <td>{{message.message}}</td>
-        </tr>
-      </table>
-
-      <button class='btn btn-default btn-block' ng-click='messages.reply(message.id, message.username)'>Reply</button>
-
-
-    </div>
   </div>
 </section>

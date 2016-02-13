@@ -1,12 +1,14 @@
 var jwt = require('jwt-simple');
 var secret = '123';
+var scope = '1';
+
 module.exports = {
   checkUser : function(req, res, next) {
     if(!req.headers['x-access-token']) {
       res.sendStatus(500);
     }
 
-    var decodedToken = jwt.decode(req.headers['x-access-token'], secret)
+    var decodedToken = jwt.decode(req.headers['x-access-token'], secret);
 
     if(decodedToken.scope === scope) {
       req.user = {};
@@ -19,7 +21,7 @@ module.exports = {
 },
 
 authenticateUser : function(id, email, res, req){
-    var payload = {id: id, email: email};
+    var payload = {id: id, email: email, scope: scope};
     var token = jwt.encode(payload, secret);
 
     res.set('token', token);

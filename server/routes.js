@@ -232,5 +232,12 @@ router.post('/addmessage', auth.checkUser, function(req, res, next) {
   res.sendStatus(201);
 });
 
+router.post('/api/chatroom', auth.checkUser, function(req, res, next) {
+  var users = req.body.users;
+  db.addLobby(users, function(){
+    res.sendStatus(201);
+  })
+})
+
 
 module.exports = router;

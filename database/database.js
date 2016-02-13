@@ -30,6 +30,8 @@ module.exports = {
       if (err) {
         console.error("error in db findUser: ", err);
       }
+      
+    console.log('++++ line28: inside findUser: ', data);
       callback(data);
     });
   },
@@ -186,5 +188,41 @@ module.exports = {
       if (err) console.error('error in db allMessages: ', err);
       callback(data);
     });
+  },
+
+  addLobby: function (users, callback) {
+    console.log('++++ line192: ' , users);
+    var userone = users.userone;
+    var usertwo = users.usertwo;
+
+    this.findUser(userone, function (useroneId) {
+      this.findUser(usertwo, function (usertwoId) {
+        var lobby = '' + useroneId[0].email + usertwoId[0].email
+        this.findLobby(lobby, function(room){
+          if(!room.length){
+            var sql = "INSERT into Chatrooms (lobby, userone, usertwo) values (?, ?, ?);";
+            var values = [lobby, useroneId[0].id, usertwoId[0].id];
+
+            connection.query(sql, values, function (err, data) {
+              if (err) console.error('error in db addLobby: ', err);
+              callback(true);
+            })
+          } else {
+            callback(false);
+          }
+        })
+      }.bind(this))
+    }.bind(this))
+  },
+
+  findLobby: function (room, callback) {
+    var sql = "SELECT * from Chatrooms WHERE lobby = ?;";
+
+    connection.query(sql, room, function (err, data) {
+      if (err) console.error('error in db findLobby: ', err);
+      console.log('++++ line217: successful findLobby: ', data);
+      callback(data);
+    })
   }
+
 }

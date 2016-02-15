@@ -212,13 +212,13 @@ router.post('/searchseeking', auth.checkUser, function(req, res, next) {
   }
 });
 
-router.get('/getmessages', auth.checkUser, function(req, res, next){
+router.get('/getrooms', auth.checkUser, function(req, res, next){
   var userto = req.user.id;
-  console.log('getting messges route hit');
+  console.log('getting messages route hit');
 
   console.log('req.user in getmessages route: ', req.user)
-  db.allMessages(userto, function(results){
-
+  db.findLobbyUser(userto, function(results){
+    console.log('+++line221: results', results);
     res.json({results: results});
   })
 })

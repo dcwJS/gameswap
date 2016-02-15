@@ -10,22 +10,21 @@ angular
           throw error;
         }.bind(this));
     };
-    this.getMessages = function() {
+    this.getRooms = function() {
       var token = $window.localStorage.getItem('com.gameswap');
-      return;
-      // return $http.get('/getmessages', {token: token})
-      //   .then(function(resp) {
-      //     return resp.data;
-      //   }.bind(this), function(error) {
-      //     throw error;
-      //   }.bind(this));
+      return $http.get('/getrooms', {token: token})
+        .then(function(resp) {
+          return resp.data;
+        }.bind(this), function(error) {
+          throw error;
+        }.bind(this));
     };
-    this.makeRoom = function(user) {
+    this.makeRoom = function(userone, usertwo) {
       return $http({
         method: 'POST',
         url: '/api/chatroom',
         data: {
-          users: {userone: "a@a.com", usertwo: "b@b.com"}
+          users: {userone: userone, usertwo: usertwo}
         }
       })
         .then(function(resp) {
@@ -33,6 +32,6 @@ angular
           return resp;
         }.bind(this), function(error) {
           throw error;
-        }.bind(this)); 
+        }.bind(this));
     }
   });

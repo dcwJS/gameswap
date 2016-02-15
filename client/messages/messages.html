@@ -10,8 +10,21 @@
 
 <section ng-controller='MessagesController as messages'>
   <div class='container-fluid col-md-offset-3 col-md-6'>
+    <h3> Pick Room </h3>
 
+    <div ng-repeat="lobby in messages.lobby">
+      <button ng-click="messages.joinLobby(lobby);">{{lobby}}</button>
+    </div>
+
+    <div class="chatBox">
+      <p class="startChat" ng-repeat="text in messages.receiveMessageText track by $index">{{text}}</p>
+    </div>
     <h3 class='head-space-md'>Send a Message</h3>
+
+    <form ng-submit="messages.sendMessage()">
+      <input type="text" autocomplete="off" ng-model="messages.messageText"/>
+      <input type="submit" value="send msg"/>
+    </form>
 
   </div>
 </section>

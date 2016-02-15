@@ -1,6 +1,6 @@
 var jwt = require('jwt-simple');
-var secret = '123';
-var scope = '1';
+var secret = require('./utilities').token.secret;
+var scope = require('./utilities').token.scope;
 
 module.exports = {
   checkUser : function(req, res, next) {

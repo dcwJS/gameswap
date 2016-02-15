@@ -30,8 +30,7 @@ module.exports = {
       if (err) {
         console.error("error in db findUser: ", err);
       }
-      
-    console.log('++++ line28: inside findUser: ', data);
+
       callback(data);
     });
   },
@@ -181,8 +180,9 @@ module.exports = {
     });
   },
 
-  allMessages: function (userid, callback) {
-    var sql = "SELECT Messages.message, Messages.createdat, Users.username, Users.id, Users.email FROM Users, Messages WHERE Messages.userto = ? AND Messages.userfrom = Users.id;";
+  allRooms: function (userid, callback) {
+    var sql = "SELECT Chatrooms.lobby, Chatrooms.createdat, Users.username, Users.id, Users.email FROM Users, Chatrooms WHERE Chatrooms.usertwo = ? AND Chatrooms.userone = Users.id;";
+    console.log('++++ line192: ' , userid);
 
     connection.query(sql, userid, function (err, data) {
       if (err) console.error('error in db allMessages: ', err);
@@ -191,14 +191,14 @@ module.exports = {
   },
 
   addLobby: function (users, callback) {
-    console.log('++++ line192: ' , users);
     var userone = users.userone;
     var usertwo = users.usertwo;
 
-    this.findUser(userone, function (useroneId) {
-      this.findUser(usertwo, function (usertwoId) {
+    this.findUsername(userone, function (useroneId) {
+      this.findUsername(usertwo, function (usertwoId) {
         var lobby = '' + useroneId[0].email + usertwoId[0].email
-        this.findLobby(lobby, function(room){
+        var userNames = {one: useroneId[0].email, two: usertwoId[0].email}
+        this.findLobbyName(userNames, function(room){
           if(!room.length){
             var sql = "INSERT into Chatrooms (lobby, userone, usertwo) values (?, ?, ?);";
             var values = [lobby, useroneId[0].id, usertwoId[0].id];
@@ -215,14 +215,38 @@ module.exports = {
     }.bind(this))
   },
 
-  findLobby: function (room, callback) {
-    var sql = "SELECT * from Chatrooms WHERE lobby = ?;";
-
-    connection.query(sql, room, function (err, data) {
+  findLobbyName: function (userNames, callback) {
+    var sql = "SELECT * from Chatrooms WHERE lobby = ? OR lobby = ?;";
+    var lobbyOne = '' + userNames.one + userNames.two;
+    var lobbyTwo = '' + userNames.two + userNames.one;
+    var lobbyName = [lobbyOne, lobbyTwo]
+    connection.query(sql, lobbyName, function (err, data) {
       if (err) console.error('error in db findLobby: ', err);
-      console.log('++++ line217: successful findLobby: ', data);
       callback(data);
     })
+  },
+
+  findLobbyUser: function (userid, callback) {
+    var sql = "SELECT * from Chatrooms WHERE userone = ? OR usertwo = ?;";
+
+    var user = [userid, userid]
+    connection.query(sql, user, function (err, data) {
+      if (err) console.error('error in db findLobby: ', err);
+      callback(data);
+    })
+  },
+
+  findUsername: function (username, callback) {
+    var sql = 'SELECT * FROM Users WHERE username = ?;'
+    var values = username;
+
+    connection.query(sql, values, function (err, data) {
+      if (err) {
+        console.error("error in db findUser: ", err);
+      }
+
+      callback(data);
+    });
   }
 
 }

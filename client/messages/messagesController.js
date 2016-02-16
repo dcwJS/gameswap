@@ -12,7 +12,9 @@ angular
     this.toName = MainService.getRecipientName();
     this.lobby = [];
     this.currentLobby;
-    this.previousMessageText = [];
+    this.previousMessageText = [{
+      msg: "No chats loaded"
+    }];
     this.receiveMessageText = [];
     this.socket = io();
     this.userInfo = {};
@@ -46,8 +48,6 @@ angular
     }
 
     this.joinLobby = function (lobby) {
-      console.log(this.lobby);
-      console.log(lobby);
       if(lobby !== this.currentLobby){
         var lobbyInfo = {
           lobby: lobby,

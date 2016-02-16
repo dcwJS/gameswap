@@ -8,13 +8,24 @@ module.exports = function(io) {
     });
 
     socket.on('joinRoom', function(room) {
-      console.info('___ New client ' + socket.id + ' connected to ' + room.lobby.lobbyid);
-      console.log('+++ line11 data emit: ' + util.inspect(room, false, null));
-      socket.join(room.lobby);
-      db.loadMessages(room.lobby.lobbyid, function(messages){
-        console.log('+++ line14 data emit: ' + util.inspect(messages, false, null));
-        io.to(socket.id).emit('load', messages);
-      });
+      if(!socket.room){
+        console.info('___ New client ' + socket.id + ' connected to ' + room.lobby.lobbyid);
+        console.log('+++ line11 data emit: ' + util.inspect(room, false, null));
+        socket.room = room.lobby;
+        socket.join(room.lobby);
+        db.loadMessages(room.lobby.lobbyid, function(messages){
+          console.log('+++ line14 data emit: ' + util.inspect(messages, false, null));
+          io.to(socket.id).emit('load', messages);
+        });
+      } else if(socket.room !== room.lobby){
+        socket.leave(socket.room);
+        socket.room = room.lobby;
+        socket.join(room.lobby);
+        db.loadMessages(room.lobby.lobbyid, function(messages){
+          console.log('+++ line14 data emit: ' + util.inspect(messages, false, null));
+          io.to(socket.id).emit('load', messages);
+        });
+      }
     })
 
     socket.on('sendMsg', function(data) {

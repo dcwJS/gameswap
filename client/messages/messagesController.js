@@ -46,11 +46,15 @@ angular
     }
 
     this.joinLobby = function (lobby) {
+      console.log(this.lobby);
+      console.log(lobby);
       if(lobby !== this.currentLobby){
         var lobbyInfo = {
           lobby: lobby,
           userName: this.userInfo.username
         }
+        this.previousMessageText = [];
+        this.receiveMessageText = [];
         this.socket.emit('joinRoom', lobbyInfo);
         this.currentLobby = lobby;
       }
@@ -66,16 +70,16 @@ angular
     this.getRooms = function () {
       MessagesService.getRooms()
       .then(function(data){
-        for(var i = 0; i < data.results.length; i++){
-          var lobbyInfo = data.results[i].lobby;
+        angular.forEach(data.results, function (lobby) {
+          var lobbyInfo = lobby.lobby;
           var recepientEmail = lobbyInfo.replace(this.userInfo.email, '');
           MessagesService.getUsernameByEmail(recepientEmail).then(function(recepient){
             this.lobby.push({
               lobbyid: lobbyInfo,
               lobbyname: recepient
             });
-          }.bind(this));
-        }
+          }.bind(this)); 
+        }.bind(this));
       }.bind(this));
     };
 

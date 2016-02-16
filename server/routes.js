@@ -224,6 +224,7 @@ router.get('/getrooms', auth.checkUser, function(req, res, next){
 
   console.log('req.user in getmessages route: ', req.user)
   db.findLobbyUser(userto, function(results){
+    console.log('+++ line227: ' + util.inspect(results, false, null));
     console.log('+++line221: results', results);
     res.json({results: results});
   })

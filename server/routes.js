@@ -110,6 +110,7 @@ router.post('/profile', auth.checkUser, function(req, res, next) {
     userInfo.username = info.username;
     userInfo.email = info.email;
     userInfo.phone = info.phone;
+    userInfo.geoloc = info.geoloc;
     userInfo.street = info.street;
     userInfo.city = info.city;
     userInfo.state = info.state;

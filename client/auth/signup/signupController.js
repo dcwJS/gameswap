@@ -7,14 +7,22 @@ angular.module('auth.signup', [])
 
 	// var city;
 
+	
+
 	signup.submit = function(){
+		var userLat = places.geometry.viewport.R.R;
+		var userLong = places.geometry.viewport.j.j;
+		
 		user.username = signup.username;
 	 	user.password = signup.password;
 	 	user.email = signup.email;
 	 	//user.city.name = only zipcode
 	 	//user.city.formatted_address = city,zip,us
 	 	user.city = places.address_components[1].long_name;
-	 	console.log('+++line 13:', places)
+	 	user.geoloc = userLat + ',' + userLong;
+	 	console.log('+++line 22: ' + user.geoloc)
+	 	console.log('+++line 24 geoloc:', userLat, userLong);
+	 	console.log('+++line 21:', places);
 	 	AuthServices.submitNewUser({user: user})
 	 		.then(function(token){
 	 		  if(token){

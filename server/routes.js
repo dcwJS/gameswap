@@ -66,12 +66,13 @@ router.post('/signup',function(req, res, next) {
   var email = req.body.user.email;
   var password = req.body.user.password;
   var city = req.body.user.city;
+  var geoloc = req.body.user.geoloc;
 
   db.findUser(email,function(data) {
     if(!data.length) {
       bcrypt.genSalt(10, function(err, salt){
         bcrypt.hash(password, salt, function(err, hash){
-          db.addUser(email, username, hash, city, function(user) {
+          db.addUser(email, username, hash, city, geoloc, function(user) {
             id =  user[0].id;
             auth.authenticateUser(id, email, res);
         });

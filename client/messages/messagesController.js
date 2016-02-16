@@ -12,6 +12,7 @@ angular
     this.toName = MainService.getRecipientName();
     this.lobby = [];
     this.currentLobby;
+    this.previousMessageText = [];
     this.receiveMessageText = [];
     this.socket = io();
     this.userInfo = {};
@@ -24,16 +25,19 @@ angular
           user: data.user + ':',
           msg: data.msg
         });
-        this.oldReceiveMessageText = this.receiveMessageText
       }.bind(this))
     }.bind(this))
 
-    this.socket.on('welcome', function(user){
-      this.rootScope.$apply(function () {
-        this.receiveMessageText.push({
-          user: user,
-          msg: ' has joined the chat'
-        });
+    this.socket.on('load', function(messages){
+      console.log('loaded baby!');
+      var prevMsg = [];
+      angular.forEach(messages, function(message){
+        this.rootScope.$apply(function () {
+          this.previousMessageText.push({
+            user: message.userfrom + ':',
+            msg: message.message
+          });
+        }.bind(this))
       }.bind(this))
     }.bind(this))
 

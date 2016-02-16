@@ -174,12 +174,19 @@ table.margin-top {
 	color: white;
 }
 
-.chatBox {
+#chatBox div:nth-child(odd) {
+	background: #eee; 
+}
+
+#chatBox {
 	overflow: auto;
 	display: block;
 	height: 250px;
 	width: 90%;
-	padding:0 15px 15px 0;
 	font-size: 15px;
 	border: 2px solid;
+}
+
+.startChat {
+	padding: 0 15px 0 15px;
 }

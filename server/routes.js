@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var auth = require('./auth');
 var db = require('../database/database');
+var url = require('url');
+var util = require('util');
 
 var bcrypt = require('bcrypt');
 
@@ -93,6 +95,7 @@ router.post('/signup',function(req, res, next) {
   @return {User Profile}
 */
 router.post('/profile', auth.checkUser, function(req, res, next) {
+  console.log('trying to check user');
   var userInfo = {};
   var offerings, seeking;
 
@@ -103,6 +106,7 @@ router.post('/profile', auth.checkUser, function(req, res, next) {
     seeking = data;
   });
   db.findUser(req.user.email, function(info) {
+    console.log('inside findUser: ' + info);
     info = info[0];
     userInfo.id = info.id;
     userInfo.firstname = info.firstname;
@@ -238,6 +242,15 @@ router.post('/api/chatroom', auth.checkUser, function(req, res, next) {
   var users = req.body.users;
   db.addLobby(users, function(){
     res.sendStatus(201);
+  })
+})
+
+router.get('/recipient', auth.checkUser, function(req, res, next) {
+  var url_parts = url.parse(req.url, true);
+  var query = url_parts.query;
+  console.log('+++ line250: ' + util.inspect(query, false, null));
+  db.findUser(query.email, function(results){
+    res.json({results: results[0].username});
   })
 })
 

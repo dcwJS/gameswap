@@ -25,7 +25,7 @@ app.use(function(req,res,next) {
 
 app.use('/',routes);
 
-app.use(express.static(__dirname+'/../client'));
+app.use(express.static('./client'));
 
 server.listen(PORT,function(){
   console.log('listening on port ', PORT);

@@ -1,23 +1,39 @@
 angular
   .module('messages.controller', [])
+  .directive('myRepeatDirective', function() {
+  return function(scope) {
+    if (scope.$last){
+      document.getElementById('chatBox').scrollTop = document.getElementById('chatBox').scrollHeight + 10;
+    }
+  };
+})
   .controller('MessagesController', function ($rootScope, $window, MainService, MessagesService, ProfileServices) {
     this.toId = MainService.getRecipientId();
     this.toName = MainService.getRecipientName();
     this.lobby = [];
+    this.currentLobby;
     this.receiveMessageText = [];
     this.socket = io();
     this.userInfo = {};
     this.rootScope = $rootScope;
 
-    this.socket.on('message', function(msg){
+    this.socket.on('message', function(data){
+      console.log('Msg data from socket room emit: ' + data);
       this.rootScope.$apply(function () {
-        this.receiveMessageText.push(msg);
+        this.receiveMessageText.push({
+          user: data.user + ':',
+          msg: data.msg
+        });
+        this.oldReceiveMessageText = this.receiveMessageText
       }.bind(this))
     }.bind(this))
 
     this.socket.on('welcome', function(user){
       this.rootScope.$apply(function () {
-        this.receiveMessageText.push("welcome " + user);
+        this.receiveMessageText.push({
+          user: user,
+          msg: ' has joined the chat'
+        });
       }.bind(this))
     }.bind(this))
 
@@ -26,18 +42,19 @@ angular
     }
 
     this.joinLobby = function (lobby) {
-      var lobbyInfo = {
-        lobby: lobby,
-        userName: this.userInfo.username
+      if(lobby !== this.currentLobby){
+        var lobbyInfo = {
+          lobby: lobby,
+          userName: this.userInfo.username
+        }
+        this.socket.emit('joinRoom', lobbyInfo);
+        this.currentLobby = lobby;
       }
-      console.log(lobbyInfo);
-      this.socket.emit('joinRoom', lobbyInfo);
-      this.currentLobby = lobby;
     }
 
     this.sendMessage = function () {
       if(this.currentLobby){
-        this.socket.emit('sendMsg', {room: this.currentLobby, msg: this.messageText});
+        this.socket.emit('sendMsg', {user: this.userInfo.username, room: this.currentLobby, msg: this.messageText});
       }
       this.messageText = "";
     };
@@ -45,10 +62,16 @@ angular
     this.getRooms = function () {
       MessagesService.getRooms()
       .then(function(data){
-        for(var i = 0;i < data.results.length; i++){
-          this.lobby.push(data.results[i].lobby);
+        for(var i = 0; i < data.results.length; i++){
+          var lobbyInfo = data.results[i].lobby;
+          var recepientEmail = lobbyInfo.replace(this.userInfo.email, '');
+          MessagesService.getUsernameByEmail(recepientEmail).then(function(recepient){
+            this.lobby.push({
+              lobbyid: lobbyInfo,
+              lobbyname: recepient
+            });
+          }.bind(this));
         }
-        console.log(this.lobby);
       }.bind(this));
     };
 

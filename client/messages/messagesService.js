@@ -33,5 +33,20 @@ angular
         }.bind(this), function(error) {
           throw error;
         }.bind(this));
+    };
+
+    this.getUsernameByEmail = function(email) {
+      return $http({
+        method: 'GET',
+        url: '/recipient',
+        params: {
+          email: email
+        }
+      })
+        .then(function(resp) {
+          return resp.data.results;
+        }.bind(this), function(error) {
+          throw error;
+        }.bind(this)); 
     }
   });

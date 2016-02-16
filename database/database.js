@@ -35,9 +35,9 @@ module.exports = {
     });
   },
 
-  addUser: function (email, username, password, city, callback) {
-    var sql = 'INSERT into Users (email, username, password, city) values(?, ?, ?, ?);';
-    var values = [email, username, password, city];
+  addUser: function (email, username, password, city, geoloc, callback) {
+    var sql = 'INSERT into Users (email, username, password, city, geoloc) values(?, ?, ?, ?, ?);';
+    var values = [email, username, password, city, geoloc];
 
     connection.query(sql, values, function(err){
       if(err) {

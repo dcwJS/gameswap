@@ -7,7 +7,7 @@ module.exports = {
 
 	games: 'CREATE TABLE IF NOT EXISTS `Games` (`id` INTEGER NOT NULL auto_increment, `title` MEDIUMTEXT NULL DEFAULT NULL, `rating` INTEGER NULL DEFAULT NULL, `description` MEDIUMTEXT NULL DEFAULT NULL, `platform` MEDIUMTEXT NULL DEFAULT NULL, `thumbnail` MEDIUMTEXT NULL DEFAULT NULL, `createdat` TIMESTAMP, PRIMARY KEY (`id`));',
 
-	messages: 'CREATE TABLE IF NOT EXISTS `Messages` (`id` INTEGER NOT NULL auto_increment, `message` MEDIUMTEXT NULL DEFAULT NULL, `userto` INTEGER NULL DEFAULT NULL, `userfrom` INTEGER NULL DEFAULT NULL, `createdat` TIMESTAMP, PRIMARY KEY (`id`));',
+	messages: 'CREATE TABLE IF NOT EXISTS `Messages` (`id` INTEGER NOT NULL auto_increment, `message` MEDIUMTEXT NULL DEFAULT NULL, `userfrom` MEDIUMTEXT NULL DEFAULT NULL, `lobby` MEDIUMTEXT NULL DEFAULT NULL, `createdat` TIMESTAMP, PRIMARY KEY (`id`));',
 
   chatrooms: 'CREATE TABLE IF NOT EXISTS `Chatrooms` (`id` INTEGER NOT NULL auto_increment, `lobby` MEDIUMTEXT NULL DEFAULT NULL, `userone` INTEGER NULL DEFAULT NULL, `usertwo` INTEGER NULL DEFAULT NULL, `createdat` TIMESTAMP, PRIMARY KEY (`id`));',
 

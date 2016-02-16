@@ -17,6 +17,7 @@
     </div>
 
     <div id="chatBox">
+      <div class="startChat" ng-repeat="text in messages.previousMessageText track by $index" my-repeat-directive>{{text.user}} {{text.msg}}</div>
       <div class="startChat" ng-repeat="text in messages.receiveMessageText track by $index" my-repeat-directive>{{text.user}} {{text.msg}}</div>
     </div>
     <h3 class='head-space-md'>Send a Message</h3>

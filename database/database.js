@@ -169,15 +169,27 @@ module.exports = {
     });
   },
 
-  addMessage: function (useridfrom, useridto, text) {
-    var sql = "INSERT into Messages (userto, userfrom, message) values (?, ?, ?);";
-    var values = [useridto, useridfrom, text];
+  addMessage: function (message, userfrom, lobbyname) {
+    var sql = "INSERT into Messages (message, userfrom, lobby) values (?, ?, ?);";
+    var values = [message, userfrom, lobbyname];
 
     connection.query(sql, values, function (err) {
       if (err) {
         console.error('error in db addMessage: ', err);
       }
     });
+  },
+
+  loadMessages: function (lobbyname, callback) {
+    var sql = "SELECT * FROM Messages WHERE lobby = ?;";
+    console.log('+++ line185 lobby name = ' + lobbyname);
+
+    connection.query(sql, lobbyname, function (err, data) {
+      if (err) {
+        console.error('error in db loadMessages: ', err);
+      }
+      callback(data);
+    })
   },
 
   allRooms: function (userid, callback) {

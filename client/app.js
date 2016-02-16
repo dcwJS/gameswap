@@ -11,7 +11,8 @@ angular
     'messages.controller',
     'messages.service',
     'index.controller',
-    'index.services'])
+    'index.services',
+    'map.controller'])
 
   .config(function($stateProvider, $urlRouterProvider, $httpProvider){
 
@@ -35,6 +36,10 @@ angular
 		    templateUrl: './userprofile/userprofile.html',
         authenticate: true
 		  })
+      .state('map', {
+        url:'/map',
+        templateUrl:'./map/map.html'
+      })
       .state('messages', {
         url: '/messages',
         templateUrl: './messages/messages.html',

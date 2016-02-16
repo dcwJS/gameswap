@@ -40,6 +40,7 @@ angular.module('auth.signup', [])
 	}
 
 	var postal_code = function () {
+
 	    var input = document.getElementById('auto-zipcode');
 	    var options = {
 	        types: ['(regions)'],

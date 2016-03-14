@@ -255,5 +255,11 @@ router.get('/recipient', auth.checkUser, function(req, res, next) {
   })
 })
 
+router.get('/getgeo', auth.checkUser, function(req, res, next) {
+  db.findAllGeo(function(results) {
+    res.json(results);
+  })
+})
+
 
 module.exports = router;

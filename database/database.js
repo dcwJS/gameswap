@@ -259,6 +259,18 @@ module.exports = {
 
       callback(data);
     });
+  },
+
+  findAllGeo: function (callback) {
+    var sql = 'SELECT geoloc FROM Users';
+
+    connection.query(sql, function(err, data) {
+      if (err) {
+        console.error("error in db findAllGeo: ", err);
+      }
+
+      callback(data);
+    })
   }
 
 }

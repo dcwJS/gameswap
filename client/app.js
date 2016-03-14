@@ -12,7 +12,8 @@ angular
     'messages.service',
     'index.controller',
     'index.services',
-    'map.controller'])
+    'map.controller',
+    'map.service'])
 
   .config(function($stateProvider, $urlRouterProvider, $httpProvider){
 

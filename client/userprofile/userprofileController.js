@@ -1,11 +1,12 @@
 angular.module('userprofile', [])
-  .controller('ProfileController', function(AuthServices, ProfileServices){
+  .controller('ProfileController', function(AuthServices, ProfileServices, $scope){
 
     var userInfo = this;
 
     this.gamesOffered = [];
     this.gamesSeeking = [];
     this.updateClicked = false;
+    $scope.gamesList = [];
 
     var loadProfile = function() {
       ProfileServices.getProfileData()
@@ -18,6 +19,14 @@ angular.module('userprofile', [])
           console.log('++++line 18: ', resp);
         });
     };
+
+    this.searchGames = function(gameQuery) {
+      ProfileServices.searchGiantBombGames(gameQuery)
+      .then(function(results){
+        console.log(results);
+        $scope.gamesList = results;
+      });
+    }
 
     this.toggleUpdate = function(){
       if(!this.updateClicked) {
@@ -40,9 +49,9 @@ angular.module('userprofile', [])
   	this.addOffer = function(game) {
       if(game.platform){
         ProfileServices.addGameOffering({
-  			  title: game.title,
+  			  title: game.name,
   			  platform: game.platform,
-          condition: game.condition
+          image: game.image
   			}).then(function(resp){
 
           setTimeout(loadProfile, 200);
@@ -54,10 +63,12 @@ angular.module('userprofile', [])
   	};
 
   	this.addSeek = function(game) {
+      console.log(game);
       if(game.platform){
         ProfileServices.addGameSeeking({
-          title: game.title,
-          platform: game.platform 
+          title: game.name,
+          platform: game.platform,
+          image: game.image 
         }).then(function(resp){
 
           setTimeout(loadProfile, 200);

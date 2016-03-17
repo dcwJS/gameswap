@@ -20,6 +20,7 @@
     "angular": "~1.4.8",
     "bootstrap": "~3.3.6",
     "angular-ui-router": "~0.2.15",
-    "bootstrap-select": "~1.9.3"
+    "bootstrap-select": "~1.9.3",
+    "underscore": "^1.8.3"
   }
 }

@@ -121,8 +121,8 @@ module.exports = {
     var checkGamesValues = [title, platform];
     var checkSeeking = 'SELECT id FROM Seeking WHERE userid = ? AND gameid = ?;';
     var checkSeekingValues = [userid];
-    var insert = 'INSERT into Seeking (userid, platform, gameid ) values( ?, ?, ?);';
-    var insertValues = [userid, platform];
+    var insert = 'INSERT into Seeking (userid, gameid ) values( ?, ?);';
+    var insertValues = [userid];
 
     connection.query(checkGames, checkGamesValues, function (err, data) {
       if (err) {

@@ -209,10 +209,11 @@ router.post('/addtoseeking', auth.checkUser, function(req, res, next) {
 
 router.post('/searchseeking', auth.checkUser, function(req, res, next) {
   var game = req.body.game;
+  console.log(game);
 
   if(game){
     db.searchSeeking(game, function(results) {
-
+      console.log(results);
       res.json({results: results});
     });
   }else {

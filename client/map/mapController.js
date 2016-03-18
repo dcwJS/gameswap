@@ -34,11 +34,6 @@ angular
 
 
           for (var i = 0; i < latData.length; i++) {  
-            var marker = new google.maps.Marker({
-              position: new google.maps.LatLng(latData[i][0], latData[i][1]),
-              map: map,
-              animation: google.maps.Animation.DROP,
-            });
 
             if (latData[i][0] === latData[latData.length - 1][0]) {
                var marker1 = new google.maps.Marker({
@@ -50,6 +45,14 @@ angular
   
                 });
                 marker1.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+            } else {
+
+                var marker = new google.maps.Marker({
+                  position: new google.maps.LatLng(latData[i][0], latData[i][1]),
+                  map: map,
+                  animation: google.maps.Animation.DROP,
+                });
+              
             }
 
 

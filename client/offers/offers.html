@@ -1,0 +1,83 @@
+  <div class='row nav head-space-md foot-space-sm' ng-controller='IndexController as index'>
+    <div class='col-md-1'></div>
+    <a ui-sref='main' class='col-md-2'>GameSwap</a>
+    <div class='col-md-3'></div>
+    <a class='col-md-1 col-md-offset-2' ng-show='!index.isAuth' ui-sref='signin'>  Sign In  </a>
+    <a ng-show='index.isAuth' class='col-md-1' ui-sref='userprofile'>Profile</a>
+    <a ng-show='index.isAuth' class='col-md-1' ui-sref='offers'>User Swap</a>
+    <a ng-show='index.isAuth' class='col-md-1' ui-sref='messages'>Messages</a>
+    <a ng-show='index.isAuth' class='col-md-1' ui-sref='map'>Map</a>
+    <a ng-show='index.isAuth' class='col-md-1' ng-click="index.signOut()" ui-sref='signin'>Sign Out</a>
+  </div>
+
+<div class='container-fluid' ng-controller="OffersController as offers">
+  <div class="jumbotron head-space-md">
+    <p class="text-center">Games Available for Swapping!</p>
+    <div>
+      <div class="text-center" ng-if="offers.loading">
+        <img src="../../assets/loading.gif">
+      </div>
+
+    <div class="row offered-game-container">
+      <div ng-repeat="game in offers.offers"
+          ng-click="offers.selectGame(game)"
+          class="col-md-4 offered-game"
+          ng-class="{'selected-game': (game.id === offers.selectedGame.id)}">
+          <div class="center offer-boxart-container">
+            <img ng-src="{{game.thumbnail}}" class="center offer-boxart"/>
+          </div>
+          <div class="offer-footer">
+            <p ng-bind="game.title" class="text-center"></p><br>
+            <p class="text-center">({{game.platform}})</p>
+          </div>
+      </div>
+    </div>
+  </div>
+  <div ng-if="offers.selectedGame.id">
+
+    <div class="row">
+
+      <div class="col-md-6" id="user-container">
+        <h4> All Users Offering <strong>{{offers.selectedGame.title}}</strong></h4>
+        <table class="table borderless whitesmoke margin-bottom-ten">
+          <tbody>
+            <tr
+            ng-repeat="user in offers.selectedGame.users"
+            ng-click="offers.userSeeking(user)"
+            class="user-offering">
+              <td ng-bind="user.username"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div
+      class="col-md-6 seeking-container"
+      ng-if="offers.selectedUser.userid">
+        <h4> {{offers.selectedUser.username}} would trade <strong>{{offers.selectedGame.title}}</strong> for these Games </h4>
+        <button type="button" class="btn btn-primary"
+        ng-if="offers.isAuth">
+        Message {{offers.selectedUser.username}}!</button>
+        <button type="button" class="btn btn-primary"
+        ng-if="!offers.isAuth"
+        ui-sref='signin'>
+        Sign in to Trade!</button>
+        <table class="table borderless whitesmoke margin-bottom-ten">
+          <tbody>
+            <tr>
+              <td class='col-md-2'><b>Offered by You?</b></td>
+              <td class='col-md-3'><b>Title</b></td>
+              <td class='col-md-2'><b>Platform</b></td>
+            </tr>
+            <tr ng-repeat="game in offers.userWants">
+              <td class='col-md-2'><span class="badge" ng-if="offers.offeredByYou(game)">Swap!</span></td>
+              <td class='col-md-3'>{{game.title}}</td>
+              <td class='col-md-2'>{{game.platform}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>

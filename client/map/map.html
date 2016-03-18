@@ -1,10 +1,12 @@
   <div class='row nav head-space-md foot-space-sm' ng-controller='IndexController as index'>
     <div class='col-md-1'></div>
     <a ui-sref='main' class='col-md-2'>GameSwap</a>
-    <div class='col-md-5'></div>
+    <div class='col-md-3'></div>
     <a class='col-md-1 col-md-offset-2' ng-show='!index.isAuth' ui-sref='signin'>  Sign In  </a>
     <a ng-show='index.isAuth' class='col-md-1' ui-sref='userprofile'>Profile</a>
+    <a ng-show='index.isAuth' class='col-md-1' ui-sref='offers'>User Swap</a>
     <a ng-show='index.isAuth' class='col-md-1' ui-sref='messages'>Messages</a>
+    <a ng-show='index.isAuth' class='col-md-1' ui-sref='map'>Map</a>
     <a ng-show='index.isAuth' class='col-md-1' ng-click="index.signOut()" ui-sref='signin'>Sign Out</a>
   </div>
 

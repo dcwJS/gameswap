@@ -13,7 +13,11 @@ angular
     'index.controller',
     'index.services',
     'map.controller',
-    'map.service'])
+    'map.service',
+    'offers.controller',
+    'offers.services',
+    'underscore'
+    ])
 
   .config(function($stateProvider, $urlRouterProvider, $httpProvider){
 
@@ -22,7 +26,11 @@ angular
 	  $stateProvider
 		  .state('main', {
 			  url: '/',
-			  templateUrl: './main/main.html',
+        views: {
+          "": {
+    			  templateUrl: './main/main.html'
+          }
+        }
 		  })
 		  .state('signin', {
 			  url: '/signin',
@@ -37,9 +45,15 @@ angular
 		    templateUrl: './userprofile/userprofile.html',
         authenticate: true
 		  })
+      .state('offers', {
+        url:'/offers',
+        templateUrl:'./offers/offers.html',
+        authenticate: true
+      })
       .state('map', {
         url:'/map',
-        templateUrl:'./map/map.html'
+        templateUrl:'./map/map.html',
+        autenticate: true
       })
       .state('messages', {
         url: '/messages',

@@ -17,13 +17,14 @@ angular
       game: game
     })
     .then(function(data) {
+      console.log(data);
       this.hasPlaystation = false;
       this.hasXbox = false;
       this.submitted = true;
       this.results = data.results;
       for (var i = 0; i < this.results.length; i++) {
         if (this.results[i].title.toLowerCase() === game.toLowerCase()) {
-          if (this.results[i].platform === 'Playstation 4') {
+          if (this.results[i].platform === 'PlayStation 4') {
             if (this.hasPlaystation === false) {
               this.hasPlaystation = true;
               this.hasXbox = false;
@@ -51,7 +52,7 @@ angular
       this.resultsSeeking = data.results;
       for (var i = 0; i < this.resultsSeeking.length; i++) {
         if (this.resultsSeeking[i].title.toLowerCase() === game.toLowerCase()) {
-          if (this.resultsSeeking[i].platform === 'Playstation 4') {
+          if (this.resultsSeeking[i].platform === 'PlayStation 4') {
             this.psGamesSeeking.push(this.resultsSeeking[i]);
           } else if (this.resultsSeeking[i].platform === 'Xbox One') {
             this.xboxGamesSeeking.push(this.resultsSeeking[i]);
@@ -85,7 +86,8 @@ angular
       (function (item) {
         this.searchOfferings(item.title)
         .then(function() {
-          if (item.platform === 'Playstation 4') {
+          console.log('what now?')
+          if (item.platform === 'PlayStation 4') {
             for (var j = 0; j < this.psGames.length; j++) {
               if (userInfo.city === this.psGames[j].city) {
                 this.psMatches.push(this.psGames[j]);
@@ -113,7 +115,7 @@ angular
         this.searchSeeking(userInfo.offerings[i].title)
         .then(function() {
           for (var j = 0; j < this.psGamesSeeking.length; j++) {
-            if (item.title === this.psGamesSeeking[j].title && item.platform === 'Playstation 4') {
+            if (item.title === this.psGamesSeeking[j].title && item.platform === 'PlayStation 4') {
               for (var k = 0; k < this.psMatches.length; k++) {
                 if (this.psGamesSeeking[j].username === this.psMatches[k].username) {
                   if (this.ps4Unique[this.psMatches[k].createdat] === undefined) {

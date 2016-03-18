@@ -9,9 +9,6 @@
     <a ng-show='index.isAuth' class='col-md-1' ui-sref='map'>Map</a>
     <a ng-show='index.isAuth' class='col-md-1' ng-click="index.signOut()" ui-sref='signin'>Sign Out</a>
   </div>
-
-<a ui-sref='main'>GameSwap</a>
-
 <div ng-controller='MainController as main'>
   <header class='jumbotron no-head-space foot-space-lg' ng-if='!main.isAuth'  >
 

@@ -17,7 +17,8 @@ angular.module('auth.signup', [])
 	 	user.email = signup.email;
 	 	//user.city.name = only zipcode
 	 	//user.city.formatted_address = city,zip,us
-	 	user.city = places.address_components[0].long_name;
+	 	//user.city = places.address_components[0].long_name;
+		user.city = places.vicinity;
 	 	user.geoloc = userLat + ',' + userLong;
 	 	console.log('+++line 23: ' + user.geoloc)
 	 	console.log('+++line 24 geoloc:', userLat, userLong);

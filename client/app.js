@@ -28,7 +28,7 @@ angular
 			  url: '/',
         views: {
           "": {
-    			  templateUrl: './offers/offers.html'
+    			  templateUrl: './main/main.html'
           }
         }
 		  })

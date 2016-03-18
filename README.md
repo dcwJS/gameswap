@@ -7,4 +7,4 @@
 * [Angular](https://angularjs.org/)
 * [Express](http://expressjs.com/)
 * [Node](https://nodejs.org/en/)
-* [Socket io](http://socket.io/)  
+* [Socket io](http://socket.io/)

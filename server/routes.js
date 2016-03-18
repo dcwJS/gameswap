@@ -168,12 +168,11 @@ router.put('/profile/update', auth.checkUser, function(req, res, next) {
 router.post('/addtoofferings', auth.checkUser, function(req, res, next) {
   var title = req.body.game.title;
   var platform = req.body.game.platform;
-  var thumbnail = req.body.game.image;
   var condition = 'default condition';
   var description = 'default description';
   var rating = 5;
 
-  db.addGame(title, platform, rating, description, thumbnail, function(success) {
+  db.addGame(title, platform, rating, description, function(success) {
     db.addOffering(req.user.id, title, platform, condition);
     res.sendStatus(201);
   });
@@ -196,11 +195,10 @@ router.post('/searchofferings', function(req, res, next) {
 router.post('/addtoseeking', auth.checkUser, function(req, res, next) {
   var title = req.body.game.title;
   var platform = req.body.game.platform;
-  var thumbnail = req.body.game.image;
   var description = 'default description';
   var rating = 5;
 
-  db.addGame(title, platform, rating, description, thumbnail, function(success) {
+  db.addGame(title, platform, rating, description, function(success) {
     db.addSeeking(req.user.id, title, platform);
     res.sendStatus(201);
   });

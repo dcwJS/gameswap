@@ -98,18 +98,6 @@ table.whitesmoke td, table.whitesmoke tr {
 	font-weight: bold;
 }
 
-.thumbnail {
-    height: 150px;
-    width: 125px;
-    display: table;
-}
-.thumbnail img {
-    max-width: 100%;
-    max-height: 100%;
-    display: table-cell;
-    vertical-align: middle;
-}
-
 .nopadding {
 	padding-right: 0px;
 	padding-left: 0px;

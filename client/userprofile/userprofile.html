@@ -8,7 +8,7 @@
   <a ng-show='index.isAuth' class='col-md-1' ng-click="index.signOut()" ui-sref='main'>Sign Out</a>
 </div>
 
-<div class='container-fluid col-md-9' ng-controller='ProfileController as profile'>
+<div class='container-fluid col-md-offset-3 col-md-6' ng-controller='ProfileController as profile'>
   <h3 class='head-space-md'>Your profile</h3>
 
   <table class='table message-border table-condensed'>
@@ -37,37 +37,6 @@
       <button class='btn btn-default' ng-click='profile.submitUpdate(profile.address)'>Submit Edits</button>
     </form>
   </div>
-
-  <div>
-  <h1 style="text-center">Find a Game</h1>
-  <p>Enter the name of the game you are looking for:</p>
-    <form ng-submit = "profile.searchGames(profile.gameQuery)" novalidate>
-      <input type="text" placeholder="Game Name" ng-model="profile.gameQuery.title" required>
-      <br>
-      <div class='col-md-6' style="padding: 10px">
-        <select class="selectpicker btn btn-default form-control" role='button' ng-model='profile.gameQuery.platform'>
-          <option value="">Platform</option>
-          <option value="PlayStation 4">PlayStation 4</option>
-          <option value="Xbox One">Xbox One</option>
-        </select>
-      </div>
-      <br>
-      <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid">Search</button>    
-    </form>
-  </div>
-
-  <div class="container-fluid" style="margin: 10px; -webkit-overflow-scrolling: touch; overflow-y: auto; display: flex;">
-    <div class="col-md-2" ng-repeat="game in gamesList">
-      <div ng-drag="true" ng-drag-data="game" data-allow-transform="true">
-        <img ng-src="{{game.image}}" class="thumbnail" alt="image not available">
-        <h5>{{game.name}}</h5>
-        <h6>{{game.platform}}</h6>
-        <button class="btn btn-primary" ng-click="profile.addOffer(game)">I'm offering</button>
-        <button class="btn btn-info" ng-click="profile.addSeek(game)">I'm seeking</button>
-      </div>
-    </div>
-  </div>
-
 
   <h3 class='head-space-md line-break'>Games you are currently offering: </h3>
 

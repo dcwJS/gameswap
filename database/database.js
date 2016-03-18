@@ -64,11 +64,11 @@ module.exports = {
     });
   },
 
-  addGame: function (title, platform, rating, description, thumbnail, callback) {
+  addGame: function (title, platform, rating, description, callback) {
     var check = 'SELECT * FROM Games WHERE title = ? AND platform = ?;'
     var checkValues = [title, platform];
-    var insert = 'INSERT IGNORE into Games (title, platform, rating, description, thumbnail) values( ?, ?, ?, ?, ?);';
-    var insertValues = [title, platform, rating, description, thumbnail];
+    var insert = 'INSERT IGNORE into Games (title, platform, rating, description) values(?, ?, ?, ?);';
+    var insertValues = [title, platform, rating, description];
 
     connection.query(check, checkValues, function(err, data) {
       if (err) {
@@ -108,8 +108,8 @@ module.exports = {
   addSeeking: function (userid, title, platform) {
     var check = 'SELECT id FROM Games WHERE title = ? AND platform = ?;';
     var checkValues = [title, platform];
-    var insert = 'INSERT into Seeking (userid, platform, gameid ) values( ?, ?, ?);';
-    var insertValues = [userid, platform];
+    var insert = 'INSERT into Seeking (userid, gameid) values( ?, ?);';
+    var insertValues = [userid];
 
     connection.query(check, checkValues, function (err, data) {
       if (err) {

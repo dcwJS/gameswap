@@ -8,7 +8,7 @@
   <a ng-show='index.isAuth' class='col-md-1' ng-click="index.signOut()" ui-sref='main'>Sign Out</a>
 </div>
 
-<div class='container-fluid col-md-9' ng-controller='ProfileController as profile'>
+<div class='container-fluid col-sm-offset-3 col-md-6' ng-controller='ProfileController as profile'>
   <h3 class='head-space-md'>Your profile</h3>
 
   <table class='table message-border table-condensed'>
@@ -42,17 +42,21 @@
   <h1 style="text-center">Find a Game</h1>
   <p>Enter the name of the game you are looking for:</p>
     <form ng-submit = "profile.searchGames(profile.gameQuery)" novalidate>
-      <input type="text" placeholder="Game Name" ng-model="profile.gameQuery.title" required>
-      <br>
-      <div class='col-md-6' style="padding: 10px">
-        <select class="selectpicker btn btn-default form-control" role='button' ng-model='profile.gameQuery.platform'>
-          <option value="">Platform</option>
-          <option value="PlayStation 4">PlayStation 4</option>
-          <option value="Xbox One">Xbox One</option>
-        </select>
+      <div class='row' style="padding: 5px">
+        <div class="col-md-5">
+          <input class="form-control" type="text" placeholder="Game Name" ng-model="profile.gameQuery.title" required>
+        </div>
       </div>
-      <br>
-      <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid">Search</button>    
+      <div class='row' style="padding: 5px">
+        <div class='col-md-2'>
+          <select class="selectpicker btn btn-default form-control" role='button' ng-model='profile.gameQuery.platform'>
+            <option value="">Platform</option>
+            <option value="PlayStation 4">PlayStation 4</option>
+            <option value="Xbox One">Xbox One</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid">Search</button>  
+      </div>  
     </form>
   </div>
 

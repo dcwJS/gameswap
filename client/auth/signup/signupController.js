@@ -4,7 +4,6 @@ angular.module('auth.signup', [])
 	var user = {};
 	var signup = this;
 	var places;
-
 	// var city;
 
 	
@@ -18,11 +17,12 @@ angular.module('auth.signup', [])
 	 	user.email = signup.email;
 	 	//user.city.name = only zipcode
 	 	//user.city.formatted_address = city,zip,us
-	 	user.city = places.address_components[1].long_name;
+	 	//user.city = places.address_components[0].long_name;
+		user.city = places.vicinity;
 	 	user.geoloc = userLat + ',' + userLong;
-	 	console.log('+++line 22: ' + user.geoloc)
+	 	console.log('+++line 23: ' + user.geoloc)
 	 	console.log('+++line 24 geoloc:', userLat, userLong);
-	 	console.log('+++line 21:', places);
+	 	console.log('+++line 25: test', places);
 	 	AuthServices.submitNewUser({user: user})
 	 		.then(function(token){
 	 		  if(token){
@@ -54,6 +54,8 @@ angular.module('auth.signup', [])
 	    autocomplete.addListener('place_changed', function() {
 	    	places = autocomplete.getPlace();
 	    });
+
+	    console.log('places in signupCon: ', places);
 
 
 	}
